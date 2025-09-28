@@ -3,6 +3,7 @@ package com.gustcustodio.cmsystem.services;
 import com.gustcustodio.cmsystem.dtos.AlunoDTO;
 import com.gustcustodio.cmsystem.entities.Aluno;
 import com.gustcustodio.cmsystem.repositories.AlunoRepository;
+import com.gustcustodio.cmsystem.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,14 +45,14 @@ public class AlunoService {
             aluno = alunoRepository.save(aluno);
             return new AlunoDTO(aluno);
         } catch (EntityNotFoundException e) {
-            throw new RuntimeException("Recurso não encontrado");
+            throw new ResourceNotFoundException("Recurso não encontrado");
         }
     }
 
     @Transactional
     public void delete(Long id) {
         if (!alunoRepository.existsById(id)) {
-            throw new RuntimeException("Recurso não encontrado");
+            throw new ResourceNotFoundException("Recurso não encontrado");
         }
 
         alunoRepository.deleteById(id);
