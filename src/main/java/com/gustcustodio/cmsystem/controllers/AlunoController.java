@@ -42,4 +42,10 @@ public class AlunoController {
         return ResponseEntity.created(uri).body(alunoDTO);
     }
 
+    @PutMapping(value = "{id}")
+    public ResponseEntity<AlunoDTO> update(@PathVariable Long id, @RequestBody AlunoDTO alunoDTO) {
+        alunoDTO = alunoService.update(id, alunoDTO);
+        return ResponseEntity.ok(alunoDTO);
+    }
+
 }
