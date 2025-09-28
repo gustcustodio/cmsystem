@@ -48,4 +48,13 @@ public class AlunoService {
         }
     }
 
+    @Transactional
+    public void delete(Long id) {
+        if (!alunoRepository.existsById(id)) {
+            throw new RuntimeException("Recurso não encontrado");
+        }
+
+        alunoRepository.deleteById(id);
+    }
+
 }
