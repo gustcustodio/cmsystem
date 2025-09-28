@@ -1,5 +1,6 @@
 package com.gustcustodio.cmsystem.entities;
 
+import com.gustcustodio.cmsystem.dtos.AlunoDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public class Aluno {
         this.id = id;
         this.nome = nome;
         this.email = email;
+    }
+
+    public Aluno(AlunoDTO alunoDTO) {
+        this.id = alunoDTO.getId();
+        this.nome = alunoDTO.getNome();
+        this.email = alunoDTO.getEmail();
     }
 
     public Long getId() {
