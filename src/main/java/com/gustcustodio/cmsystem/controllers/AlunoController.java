@@ -7,6 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/alunos")
@@ -25,6 +28,18 @@ public class AlunoController {
     public ResponseEntity<Page<AlunoDTO>> findAll(Pageable pageable) {
         Page<AlunoDTO> alunoDTOS = alunoService.findAll(pageable);
         return ResponseEntity.ok(alunoDTOS);
+    }
+
+    @PostMapping
+    public ResponseEntity<AlunoDTO> insert(@RequestBody AlunoDTO alunoDTO) {
+        alunoDTO = alunoService.insert(alunoDTO);
+        URI uri =
+                ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(alunoDTO.getId())
+                        .toUri();
+        return ResponseEntity.created(uri).body(alunoDTO);
     }
 
 }
