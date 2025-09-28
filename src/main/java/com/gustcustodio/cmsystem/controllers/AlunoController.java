@@ -48,4 +48,10 @@ public class AlunoController {
         return ResponseEntity.ok(alunoDTO);
     }
 
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<AlunoDTO> delete(@PathVariable Long id) {
+        alunoService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
