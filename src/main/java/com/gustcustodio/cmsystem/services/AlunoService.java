@@ -27,4 +27,11 @@ public class AlunoService {
         return alunoPage.map(AlunoDTO::new);
     }
 
+    @Transactional
+    public AlunoDTO insert(AlunoDTO alunoDTO) {
+        Aluno aluno = new Aluno(alunoDTO);
+        aluno = alunoRepository.save(aluno);
+        return new AlunoDTO(aluno);
+    }
+
 }
