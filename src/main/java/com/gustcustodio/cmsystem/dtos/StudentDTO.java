@@ -1,25 +1,25 @@
 package com.gustcustodio.cmsystem.dtos;
 
-import com.gustcustodio.cmsystem.entities.Aluno;
+import com.gustcustodio.cmsystem.entities.Student;
 
-public class AlunoDTO {
+public class StudentDTO {
 
     private Long id;
-    private String nome;
+    private String name;
     private String email;
 
-    public AlunoDTO() {
+    public StudentDTO() {
     }
 
-    public AlunoDTO(Long id, String nome, String email) {
+    public StudentDTO(Long id, String name, String email) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.email = email;
     }
 
-    public AlunoDTO(Aluno entity) {
+    public StudentDTO(Student entity) {
         this.id = entity.getId();
-        this.nome = entity.getNome();
+        this.name = entity.getName();
         this.email = entity.getEmail();
     }
 
@@ -27,8 +27,8 @@ public class AlunoDTO {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
