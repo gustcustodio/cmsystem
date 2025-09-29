@@ -3,6 +3,8 @@ package com.gustcustodio.cmsystem.controllers;
 import com.gustcustodio.cmsystem.dtos.CourseDTO;
 import com.gustcustodio.cmsystem.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,12 @@ public class CourseController {
     public ResponseEntity<CourseDTO> findById(@PathVariable Long id) {
         CourseDTO courseDTO = courseService.findById(id);
         return ResponseEntity.ok(courseDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CourseDTO>> findAll(Pageable pageable) {
+        Page<CourseDTO> courseDTOS = courseService.findAll(pageable);
+        return ResponseEntity.ok(courseDTOS);
     }
 
 }
