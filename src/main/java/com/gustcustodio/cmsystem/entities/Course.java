@@ -1,5 +1,6 @@
 package com.gustcustodio.cmsystem.entities;
 
+import com.gustcustodio.cmsystem.dtos.CourseDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -26,6 +27,12 @@ public class Course {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Course(CourseDTO entity) {
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.description = entity.getDescription();
     }
 
     public Long getId() {
