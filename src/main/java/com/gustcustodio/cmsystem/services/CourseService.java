@@ -49,4 +49,13 @@ public class CourseService {
         }
     }
 
+    @Transactional
+    public void delete(Long id) {
+        if (!courseRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+
+        courseRepository.deleteById(id);
+    }
+
 }
