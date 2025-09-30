@@ -27,4 +27,11 @@ public class CourseService {
         return coursePage.map(CourseDTO::new);
     }
 
+    @Transactional
+    public CourseDTO insert(CourseDTO courseDTO) {
+        Course course = new Course(courseDTO);
+        course = courseRepository.save(course);
+        return new CourseDTO(course);
+    }
+
 }
