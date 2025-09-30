@@ -1,6 +1,7 @@
 package com.gustcustodio.cmsystem.controllers;
 
 import com.gustcustodio.cmsystem.dtos.CourseDTO;
+import com.gustcustodio.cmsystem.dtos.StudentDTO;
 import com.gustcustodio.cmsystem.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,6 +47,12 @@ public class CourseController {
     public ResponseEntity<CourseDTO> update(@PathVariable Long id, @RequestBody CourseDTO courseDTO) {
         courseDTO = courseService.update(id, courseDTO);
         return ResponseEntity.ok(courseDTO);
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<StudentDTO> delete(@PathVariable Long id) {
+        courseService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
