@@ -42,4 +42,10 @@ public class CourseController {
         return ResponseEntity.created(uri).body(courseDTO);
     }
 
+    @PutMapping(value = "{id}")
+    public ResponseEntity<CourseDTO> update(@PathVariable Long id, @RequestBody CourseDTO courseDTO) {
+        courseDTO = courseService.update(id, courseDTO);
+        return ResponseEntity.ok(courseDTO);
+    }
+
 }
