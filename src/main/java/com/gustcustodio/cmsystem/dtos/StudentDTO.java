@@ -1,12 +1,18 @@
 package com.gustcustodio.cmsystem.dtos;
 
+import com.gustcustodio.cmsystem.entities.Registration;
 import com.gustcustodio.cmsystem.entities.Student;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class StudentDTO {
 
     private Long id;
     private String name;
     private String email;
+
+    private Set<RegistrationDTO> registrations = new HashSet<>();
 
     public StudentDTO() {
     }
@@ -21,6 +27,9 @@ public class StudentDTO {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
+        for (Registration registration : entity.getRegistrations()) {
+            registrations.add(new RegistrationDTO(registration));
+        }
     }
 
     public Long getId() {
@@ -33,6 +42,10 @@ public class StudentDTO {
 
     public String getEmail() {
         return email;
+    }
+
+    public Set<RegistrationDTO> getRegistrations() {
+        return registrations;
     }
 
 }

@@ -3,8 +3,8 @@ package com.gustcustodio.cmsystem.entities;
 import com.gustcustodio.cmsystem.dtos.StudentDTO;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_student")
@@ -18,7 +18,7 @@ public class Student {
     private String email;
 
     @OneToMany(mappedBy = "student")
-    private List<Registration> registrations = new ArrayList<>();
+    private Set<Registration> registrations = new HashSet<>();
 
     public Student() {
     }
@@ -57,6 +57,10 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Registration> getRegistrations() {
+        return registrations;
     }
 
 }
