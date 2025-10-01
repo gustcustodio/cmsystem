@@ -4,7 +4,9 @@ import com.gustcustodio.cmsystem.dtos.CourseDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_course")
@@ -18,7 +20,7 @@ public class Course {
     private String description;
 
     @OneToMany(mappedBy = "course")
-    private List<Registration> registrations = new ArrayList<>();
+    private Set<Registration> registrations = new HashSet<>();
 
     public Course() {
     }
@@ -57,6 +59,10 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Registration> getRegistrations() {
+        return registrations;
     }
 
 }
