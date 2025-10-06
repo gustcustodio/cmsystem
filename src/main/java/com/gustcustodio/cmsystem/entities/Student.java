@@ -4,6 +4,7 @@ import com.gustcustodio.cmsystem.dtos.StudentDTO;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +18,7 @@ public class Student {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "id.student")
     private Set<Registration> registrations = new HashSet<>();
 
     public Student() {
@@ -59,8 +60,12 @@ public class Student {
         this.email = email;
     }
 
-    public Set<Registration> getRegistrations() {
+    public Set<Registration> getStudentCourses() {
         return registrations;
+    }
+
+    public List<Course> getCourses() {
+        return registrations.stream().map(Registration::getCourse).toList();
     }
 
 }
