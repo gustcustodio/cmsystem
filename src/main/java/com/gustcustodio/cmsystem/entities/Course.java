@@ -3,7 +3,6 @@ package com.gustcustodio.cmsystem.entities;
 import com.gustcustodio.cmsystem.dtos.CourseDTO;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +18,7 @@ public class Course {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "id.course")
     private Set<Registration> registrations = new HashSet<>();
 
     public Course() {
@@ -61,8 +60,12 @@ public class Course {
         this.description = description;
     }
 
-    public Set<Registration> getRegistrations() {
+    public Set<Registration> getStudentCourses() {
         return registrations;
+    }
+
+    public List<Student> getStudents() {
+        return registrations.stream().map(Registration::getStudent).toList();
     }
 
 }
