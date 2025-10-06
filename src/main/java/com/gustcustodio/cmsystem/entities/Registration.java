@@ -1,6 +1,8 @@
 package com.gustcustodio.cmsystem.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
@@ -8,52 +10,34 @@ import java.time.LocalDate;
 @Table(name = "tb_registration")
 public class Registration {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @EmbeddedId
+    private StudentCoursePK id = new StudentCoursePK();
 
     private LocalDate registrationDate;
 
     public Registration() {
     }
 
-    public Registration(Long id, Student student, Course course, LocalDate registrationDate) {
-        this.id = id;
-        this.student = student;
-        this.course = course;
+    public Registration(Student student, Course course, LocalDate registrationDate) {
+        this.id.setStudent(student);
+        this.id.setCourse(course);
         this.registrationDate = registrationDate;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Student getStudent() {
-        return student;
+        return id.getStudent();
     }
 
     public void setStudent(Student student) {
-        this.student = student;
+        id.setStudent(student);
     }
 
-    public Course getCurso() {
-        return course;
+    public Course getCourse() {
+        return id.getCourse();
     }
 
-    public void setCurso(Course course) {
-        this.course = course;
+    public void setCourse(Course course) {
+        id.setCourse(course);
     }
 
     public LocalDate getRegistrationDate() {
@@ -63,5 +47,4 @@ public class Registration {
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
-
 }
