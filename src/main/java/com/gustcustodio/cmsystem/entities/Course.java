@@ -4,7 +4,6 @@ import com.gustcustodio.cmsystem.dtos.CourseDTO;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -60,12 +59,8 @@ public class Course {
         this.description = description;
     }
 
-    public Set<Registration> getStudentCourses() {
+    public Set<Registration> getRegistrations() {
         return registrations;
-    }
-
-    public List<Student> getStudents() {
-        return registrations.stream().map(Registration::getStudent).toList();
     }
 
 }
