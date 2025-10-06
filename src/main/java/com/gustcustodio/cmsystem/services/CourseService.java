@@ -1,6 +1,7 @@
 package com.gustcustodio.cmsystem.services;
 
 import com.gustcustodio.cmsystem.dtos.CourseDTO;
+import com.gustcustodio.cmsystem.dtos.CourseDetailsDTO;
 import com.gustcustodio.cmsystem.entities.Course;
 import com.gustcustodio.cmsystem.repositories.CourseRepository;
 import com.gustcustodio.cmsystem.services.exceptions.ResourceNotFoundException;
@@ -18,9 +19,9 @@ public class CourseService {
     private CourseRepository courseRepository;
 
     @Transactional(readOnly = true)
-    public CourseDTO findById(Long id) {
+    public CourseDetailsDTO findById(Long id) {
         Course course = courseRepository.findById(id).orElseThrow();
-        return new CourseDTO(course);
+        return new CourseDetailsDTO(course);
     }
 
     @Transactional(readOnly = true)

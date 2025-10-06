@@ -1,6 +1,7 @@
 package com.gustcustodio.cmsystem.controllers;
 
 import com.gustcustodio.cmsystem.dtos.CourseDTO;
+import com.gustcustodio.cmsystem.dtos.CourseDetailsDTO;
 import com.gustcustodio.cmsystem.dtos.StudentDTO;
 import com.gustcustodio.cmsystem.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CourseDTO> findById(@PathVariable Long id) {
-        CourseDTO courseDTO = courseService.findById(id);
-        return ResponseEntity.ok(courseDTO);
+    public ResponseEntity<CourseDetailsDTO> findById(@PathVariable Long id) {
+        CourseDetailsDTO courseDetailsDTO = courseService.findById(id);
+        return ResponseEntity.ok(courseDetailsDTO);
     }
 
     @GetMapping
