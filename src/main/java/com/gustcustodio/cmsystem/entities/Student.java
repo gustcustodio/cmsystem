@@ -60,12 +60,8 @@ public class Student {
         this.email = email;
     }
 
-    public Set<Registration> getStudentCourses() {
+    public Set<Registration> getCourses() {
         return registrations;
-    }
-
-    public List<Course> getCourses() {
-        return registrations.stream().map(Registration::getCourse).toList();
     }
 
 }
