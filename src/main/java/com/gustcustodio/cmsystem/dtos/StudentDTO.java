@@ -27,7 +27,7 @@ public class StudentDTO {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
-        for (Registration registration : entity.getCourses()) {
+        for (Registration registration : entity.getRegistrations()) {
             CourseDTO courseDTO = new CourseDTO(registration.getCourse());
             courses.add(courseDTO);
         }

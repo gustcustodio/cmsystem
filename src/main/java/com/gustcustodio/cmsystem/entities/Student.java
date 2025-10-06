@@ -4,7 +4,6 @@ import com.gustcustodio.cmsystem.dtos.StudentDTO;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -60,7 +59,7 @@ public class Student {
         this.email = email;
     }
 
-    public Set<Registration> getCourses() {
+    public Set<Registration> getRegistrations() {
         return registrations;
     }
 
