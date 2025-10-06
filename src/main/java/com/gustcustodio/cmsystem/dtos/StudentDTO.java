@@ -12,7 +12,7 @@ public class StudentDTO {
     private String name;
     private String email;
 
-    private Set<RegistrationDTO> registrations = new HashSet<>();
+    private Set<CourseDTO> courses = new HashSet<>();
 
     public StudentDTO() {
     }
@@ -27,8 +27,9 @@ public class StudentDTO {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
-        for (Registration registration : entity.getRegistrations()) {
-            registrations.add(new RegistrationDTO(registration));
+        for (Registration registration : entity.getCourses()) {
+            CourseDTO courseDTO = new CourseDTO(registration.getCourse());
+            courses.add(courseDTO);
         }
     }
 
@@ -44,8 +45,8 @@ public class StudentDTO {
         return email;
     }
 
-    public Set<RegistrationDTO> getRegistrations() {
-        return registrations;
+    public Set<CourseDTO> getCourses() {
+        return courses;
     }
 
 }
