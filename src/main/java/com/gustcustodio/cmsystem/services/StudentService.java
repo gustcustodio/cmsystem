@@ -25,7 +25,7 @@ public class StudentService {
 
     @Transactional(readOnly = true)
     public Page<StudentDTO> findAll(Pageable pageable) {
-        Page<Student> studentPage = studentRepository.findAll(pageable);
+        Page<Student> studentPage = studentRepository.findStudentsWithCourses(pageable);
         return studentPage.map(StudentDTO::new);
     }
 
