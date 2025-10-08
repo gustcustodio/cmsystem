@@ -25,8 +25,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<StudentDTO>> findAll(Pageable pageable) {
-        Page<StudentDTO> studentDTOS = studentService.findAll(pageable);
+    public ResponseEntity<Page<StudentDTO>> findStudentsWithCourses(Pageable pageable) {
+        Page<StudentDTO> studentDTOS = studentService.findStudentsWithCourses(pageable);
         return ResponseEntity.ok(studentDTOS);
     }
 
