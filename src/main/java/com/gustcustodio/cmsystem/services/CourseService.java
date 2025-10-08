@@ -25,9 +25,9 @@ public class CourseService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CourseDTO> findAll(Pageable pageable) {
-        Page<Course> coursePage = courseRepository.findAll(pageable);
-        return coursePage.map(CourseDTO::new);
+    public Page<CourseDetailsDTO> findCourseWithStudents(Pageable pageable) {
+        Page<Course> coursePage = courseRepository.findCourseWithStudents(pageable);
+        return coursePage.map(CourseDetailsDTO::new);
     }
 
     @Transactional
