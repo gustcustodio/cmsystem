@@ -17,7 +17,7 @@ public class Course {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "id.course")
+    @OneToMany(mappedBy = "id.course", cascade = CascadeType.ALL)
     private Set<Registration> registrations = new HashSet<>();
 
     public Course() {
