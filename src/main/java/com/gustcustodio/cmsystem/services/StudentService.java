@@ -1,7 +1,12 @@
 package com.gustcustodio.cmsystem.services;
 
+import com.gustcustodio.cmsystem.dtos.CourseDTO;
 import com.gustcustodio.cmsystem.dtos.StudentDTO;
+import com.gustcustodio.cmsystem.entities.Course;
+import com.gustcustodio.cmsystem.entities.Registration;
 import com.gustcustodio.cmsystem.entities.Student;
+import com.gustcustodio.cmsystem.repositories.CourseRepository;
+import com.gustcustodio.cmsystem.repositories.RegistrationRepository;
 import com.gustcustodio.cmsystem.repositories.StudentRepository;
 import com.gustcustodio.cmsystem.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,11 +16,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private RegistrationRepository registrationRepository;
 
     @Transactional(readOnly = true)
     public StudentDTO findById(Long id) {
@@ -31,8 +44,19 @@ public class StudentService {
 
     @Transactional
     public StudentDTO insert(StudentDTO studentDTO) {
-        Student student = new Student(studentDTO);
-        student = studentRepository.save(student);
+        Student student = new Student();
+        student.setName(studentDTO.getName());
+        student.setEmail(studentDTO.getEmail());
+
+        for (CourseDTO courseDTO : studentDTO.getCourses()) {
+            Course course = courseRepository.getReferenceById(courseDTO.getId());
+            Registration registration = new Registration(student, course, LocalDate.now());
+            student.getRegistrations().add(registration);
+        }
+
+        studentRepository.save(student);
+        registrationRepository.saveAll(student.getRegistrations());
+
         return new StudentDTO(student);
     }
 
