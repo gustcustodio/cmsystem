@@ -6,28 +6,45 @@ import java.time.LocalDate;
 
 public class RegistrationDTO {
 
-    private Long id;
     private LocalDate registrationDate;
+    private String studentName;
+    private String studentEmail;
+    private String courseName;
+    private String courseDescription;
 
     public RegistrationDTO() {
     }
 
-    public RegistrationDTO(Long id, LocalDate registrationDate) {
-        this.id = id;
+    public RegistrationDTO(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
 
-    public RegistrationDTO(Registration registration) {
-        this.id = registration.getId();
-        this.registrationDate = registration.getRegistrationDate();
-    }
-
-    public Long getId() {
-        return id;
+    public RegistrationDTO(Registration entity) {
+        this.registrationDate = entity.getRegistrationDate();
+        this.studentName = entity.getStudent().getName();
+        this.studentEmail = entity.getStudent().getEmail();
+        this.courseName = entity.getCourse().getName();
+        this.courseDescription = entity.getCourse().getDescription();
     }
 
     public LocalDate getRegistrationDate() {
         return registrationDate;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public String getCourseDescription() {
+        return courseDescription;
     }
 
 }
