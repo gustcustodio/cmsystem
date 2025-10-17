@@ -4,6 +4,7 @@ import com.gustcustodio.cmsystem.dtos.CourseDTO;
 import com.gustcustodio.cmsystem.dtos.CourseDetailsDTO;
 import com.gustcustodio.cmsystem.dtos.StudentDTO;
 import com.gustcustodio.cmsystem.services.CourseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +34,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<CourseDTO> insert(@RequestBody CourseDTO courseDTO) {
+    public ResponseEntity<CourseDTO> insert(@Valid @RequestBody CourseDTO courseDTO) {
         courseDTO = courseService.insert(courseDTO);
         URI uri =
                 ServletUriComponentsBuilder
@@ -45,7 +46,7 @@ public class CourseController {
     }
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<CourseDTO> update(@PathVariable Long id, @RequestBody CourseDTO courseDTO) {
+    public ResponseEntity<CourseDTO> update(@PathVariable Long id, @Valid @RequestBody CourseDTO courseDTO) {
         courseDTO = courseService.update(id, courseDTO);
         return ResponseEntity.ok(courseDTO);
     }

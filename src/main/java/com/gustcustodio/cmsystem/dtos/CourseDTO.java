@@ -1,11 +1,19 @@
 package com.gustcustodio.cmsystem.dtos;
 
 import com.gustcustodio.cmsystem.entities.Course;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class CourseDTO {
 
     private Long id;
+
+    @Size(min = 10, max = 80, message = "Nome precisa ter de 10 a 80 caracteres")
+    @NotBlank(message = "Campo requerido")
     private String name;
+
+    @Size(min = 10, max = 80, message = "Descrição precisa ter de 10 a 80 caracteres")
+    @NotBlank(message = "Campo requerido")
     private String description;
 
     public CourseDTO() {
