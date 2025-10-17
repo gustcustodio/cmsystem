@@ -1,10 +1,13 @@
 package com.gustcustodio.cmsystem.controllers.handlers;
 
 import com.gustcustodio.cmsystem.dtos.CustomErrorDTO;
+import com.gustcustodio.cmsystem.dtos.ValidationErrorDTO;
 import com.gustcustodio.cmsystem.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -19,6 +22,17 @@ public class ControllerExceptionHandler {
         CustomErrorDTO customErrorDTO =
                 new CustomErrorDTO(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(customErrorDTO);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<CustomErrorDTO> methodArgumentNotValid(MethodArgumentNotValidException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        ValidationErrorDTO validationErrorDTO =
+                new ValidationErrorDTO(Instant.now(), status.value(), "Dados inválidos", request.getRequestURI());
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            validationErrorDTO.addError(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+        return ResponseEntity.status(status).body(validationErrorDTO);
     }
 
 }
