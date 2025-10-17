@@ -2,6 +2,7 @@ package com.gustcustodio.cmsystem.controllers;
 
 import com.gustcustodio.cmsystem.dtos.StudentDTO;
 import com.gustcustodio.cmsystem.services.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +32,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDTO> insert(@RequestBody StudentDTO studentDTO) {
+    public ResponseEntity<StudentDTO> insert(@Valid @RequestBody StudentDTO studentDTO) {
         studentDTO = studentService.insert(studentDTO);
         URI uri =
                 ServletUriComponentsBuilder
@@ -43,7 +44,7 @@ public class StudentController {
     }
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<StudentDTO> update(@PathVariable Long id, @RequestBody StudentDTO studentDTO) {
+    public ResponseEntity<StudentDTO> update(@PathVariable Long id, @Valid @RequestBody StudentDTO studentDTO) {
         studentDTO = studentService.update(id, studentDTO);
         return ResponseEntity.ok(studentDTO);
     }
