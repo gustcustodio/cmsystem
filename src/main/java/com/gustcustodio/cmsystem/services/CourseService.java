@@ -20,7 +20,8 @@ public class CourseService {
 
     @Transactional(readOnly = true)
     public CourseDetailsDTO findById(Long id) {
-        Course course = courseRepository.findById(id).orElseThrow();
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Curso de ID " + id + " não encontrado"));
         return new CourseDetailsDTO(course);
     }
 
@@ -46,14 +47,14 @@ public class CourseService {
             course = courseRepository.save(course);
             return new CourseDTO(course);
         } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
+            throw new ResourceNotFoundException("Curso de ID " + id + " não encontrado");
         }
     }
 
     @Transactional
     public void delete(Long id) {
         if (!courseRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
+            throw new ResourceNotFoundException("Curso de ID " + id + " não encontrado");
         }
 
         courseRepository.deleteById(id);
