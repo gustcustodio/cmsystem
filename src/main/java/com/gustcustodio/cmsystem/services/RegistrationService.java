@@ -8,6 +8,7 @@ import com.gustcustodio.cmsystem.entities.StudentCoursePK;
 import com.gustcustodio.cmsystem.repositories.CourseRepository;
 import com.gustcustodio.cmsystem.repositories.RegistrationRepository;
 import com.gustcustodio.cmsystem.repositories.StudentRepository;
+import com.gustcustodio.cmsystem.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +27,11 @@ public class RegistrationService {
 
     @Transactional(readOnly = true)
     public RegistrationDTO findByStudentAndCourseId(Long studentId, Long courseId) {
-        Student student = studentRepository.getReferenceById(studentId);
-        Course course = courseRepository.getReferenceById(courseId);
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Aluno de ID " + studentId + " não encontrado"));
+
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Curso de ID " + courseId + " não encontrado"));
 
         StudentCoursePK studentCoursePK = new StudentCoursePK();
         studentCoursePK.setStudent(student);
