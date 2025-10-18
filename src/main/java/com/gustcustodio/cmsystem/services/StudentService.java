@@ -32,7 +32,8 @@ public class StudentService {
 
     @Transactional(readOnly = true)
     public StudentDTO findById(Long id) {
-        Student student = studentRepository.findById(id).orElseThrow();
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Aluno de ID " + id + " não encontrado"));
         return new StudentDTO(student);
     }
 
@@ -69,14 +70,14 @@ public class StudentService {
             student = studentRepository.save(student);
             return new StudentDTO(student);
         } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
+            throw new ResourceNotFoundException("Aluno de ID " + id + " não encontrado");
         }
     }
 
     @Transactional
     public void delete(Long id) {
         if (!studentRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
+            throw new ResourceNotFoundException("Aluno de ID " + id + " não encontrado");
         }
 
         studentRepository.deleteById(id);
