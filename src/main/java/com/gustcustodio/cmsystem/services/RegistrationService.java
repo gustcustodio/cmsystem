@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 public class RegistrationService {
 
@@ -38,6 +40,32 @@ public class RegistrationService {
         studentCoursePK.setCourse(course);
 
         Registration registration = registrationRepository.findById(studentCoursePK).orElseThrow();
+
+        return new RegistrationDTO(registration);
+    }
+
+    @Transactional
+    public RegistrationDTO updateStudentCourse(Long studentId, Long oldCourseId, Long newCourseId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Aluno de ID " + studentId + " não encontrado"));
+
+        Course oldCourse = courseRepository.findById(oldCourseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Curso de ID " + oldCourseId + " não encontrado"));
+
+        StudentCoursePK oldStudentCoursePK = new StudentCoursePK();
+        oldStudentCoursePK.setStudent(student);
+        oldStudentCoursePK.setCourse(oldCourse);
+        registrationRepository.deleteById(oldStudentCoursePK);
+
+        Course newCourse = courseRepository.findById(newCourseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Curso de ID " + newCourseId + " não encontrado"));
+
+        StudentCoursePK newStudentCoursePK = new StudentCoursePK();
+        newStudentCoursePK.setStudent(student);
+        newStudentCoursePK.setCourse(newCourse);
+
+        Registration registration = new Registration(newStudentCoursePK.getStudent(), newStudentCoursePK.getCourse(), LocalDate.now());
+        registrationRepository.save(registration);
 
         return new RegistrationDTO(registration);
     }
