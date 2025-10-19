@@ -16,7 +16,7 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
 
-    @GetMapping(value = "/students/{studentId}/courses/{courseId}")
+    @GetMapping(value = "/student/{studentId}/course/{courseId}")
     public ResponseEntity<RegistrationDTO> findByStudentAndCourseId(@PathVariable Long studentId, @PathVariable Long courseId) {
         RegistrationDTO registrationDTO = registrationService.findByStudentAndCourseId(studentId, courseId);
         return ResponseEntity.ok(registrationDTO);
