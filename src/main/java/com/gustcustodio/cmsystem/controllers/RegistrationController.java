@@ -25,4 +25,10 @@ public class RegistrationController {
         return ResponseEntity.ok(registrationDTO);
     }
 
+    @DeleteMapping(value = "/student/{studentId}/course/{courseId}")
+    public ResponseEntity<RegistrationDTO> delete(@PathVariable Long studentId, @PathVariable Long courseId) {
+        registrationService.delete(studentId, courseId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
