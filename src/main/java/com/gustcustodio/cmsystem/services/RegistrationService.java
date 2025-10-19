@@ -70,4 +70,22 @@ public class RegistrationService {
         return new RegistrationDTO(registration);
     }
 
+    public void delete(Long studentId, Long courseId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Aluno de ID " + studentId + " não encontrado"));
+
+        Course oldCourse = courseRepository.findById(courseId)
+                .orElseThrow(() -> new ResourceNotFoundException("Curso de ID " + courseId + " não encontrado"));
+
+        StudentCoursePK oldStudentCoursePK = new StudentCoursePK();
+        oldStudentCoursePK.setStudent(student);
+        oldStudentCoursePK.setCourse(oldCourse);
+
+        if (!registrationRepository.existsById(oldStudentCoursePK)) {
+            throw new ResourceNotFoundException("Registro não encontrado");
+        }
+
+        registrationRepository.deleteById(oldStudentCoursePK);
+    }
+
 }
